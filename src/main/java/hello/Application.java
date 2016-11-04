@@ -3,9 +3,11 @@ package hello;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.sql.Blob;
@@ -13,6 +15,7 @@ import java.sql.Blob;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
+import org.h2.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,6 +96,10 @@ public class Application {
 			log.info("Customer found with findOne(1L):");
 			log.info("--------------------------------");
 			log.info(customer.toString());
+			ByteArrayInputStream baimg = new ByteArrayInputStream(customer.getImage());
+			IOUtils.copy(baimg, new FileOutputStream("C:\\Data\\newfile2.jpg"));
+//			BufferedImage bufimg = ImageIO.read(baimg);
+//			ImageIO.write(bufimg, "jpg", new File("C:\\Data\\newfile.jpg"));
             log.info("");
 
 			// fetch customers by last name
